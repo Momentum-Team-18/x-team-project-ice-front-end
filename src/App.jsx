@@ -2,12 +2,16 @@ import { useState } from 'react'
 import './App.css'
 import Home from './Home'
 
-function App() {
-  const isLoggedIn = false
+const App = () => {
+  // const isLoggedIn = false
+  const [ token, setToken] = useState("")
 
-  if(!isLoggedIn) {
-    return <Home />
+  if(!token) {
+    return <Home setToken={setToken} />
   }
+  // if(!isLoggedIn) {
+  //   return <Home />
+  // }
   return (
     <>
       <h1>Hello World</h1>
