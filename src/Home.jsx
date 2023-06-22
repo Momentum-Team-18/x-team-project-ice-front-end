@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from 'react'
 import axios from 'axios'
 
-function Home () {
+function Home ({setToken}) {
 
         const [username, setUsername] = useState('')
         const [password, setPassword] = useState('')
@@ -22,7 +22,7 @@ function Home () {
         }
     
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div>
                 Login
             </div>
@@ -49,8 +49,7 @@ function Home () {
             <div>
                 <input 
                 type='submit' 
-                value="Login"
-                onChange={handleSubmit}>
+                value="Login">
                 </input>
             </div>
         </form>
