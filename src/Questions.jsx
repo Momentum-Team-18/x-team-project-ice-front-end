@@ -1,14 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from 'react'
 import axios from 'axios'
 
 function Questions() {
+
+    const [questions, setQuestions] = useState([])
     
-    
+    const handleLogout = () => {
+        axios.post('https://questionapi.onrender.com/auth/token/logout/')
+        .then(() => {})
+    }
+
+    useEffect(() => {
+        axios
+        .get('https://questionapi.onrender.com/questions/')
+        .then((response) => setQuestions(response.data))
+    }, [])
+    console.log(questions)
 
     return (
     <>
-        <form className="questionForm">
+
+        <div>
+        {questions.map((question) => (
+            <ul>
+                <p>{question.question_title}</p>
+                <p>{question.question_text}</p>
+            </ul>
+        ))}
+        </div>
+
+        <div>
+            <input type='text'>
+            </input>
+        </div>
             <input 
             type="text" 
             placeholder="Enter your question:">
@@ -17,17 +42,8 @@ function Questions() {
                 type='submit' 
                 value="Submit">
             </input>
-        </form>
-        <form className="answerForm">
-            <input 
-            type="text" 
-            placeholder="Enter your answer:">
-            </input>
-            <input 
-                type='submit' 
-                value="Submit">
-            </input>
-        </form>
+
+        <button onClick={handleLogout}>Logout</button>
     </>
         // <form onSubmit={handleSubmit}>
         //     <input
