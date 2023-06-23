@@ -16,6 +16,7 @@ function Home({setToken}) {
         setUsername(event.target.value)
     }
 
+<<<<<<< HEAD
     const handleEmail = (event) => {
         setEmail(event.target.value)
     }
@@ -29,6 +30,35 @@ function Home({setToken}) {
             })
             .then((res) => setToken(res.data.auth_token))
     }
+=======
+        const handleLogout = () => {
+            axios.post('https://questionapi.onrender.com/auth/token/logout/', {}, {
+            })
+            .then(() => {})
+        }
+
+        const handleSubmit = (e) => {
+            e.preventDefault()
+            axios
+                .post('https://questionapi.onrender.com/auth/token/login/', {
+                    username: username,
+                    password: password,
+                })
+                .then((res) => setToken(res.data.auth_token))
+        }
+
+        const handleRegister = (e) => {
+            e.preventDefault()
+            axios
+                .post('https://questionapi.onrender.com/auth/users/', {
+                    username: username,
+                    password: password,
+                    email: email,
+                })
+                
+                .then((res) => console.log(res.data))
+        }
+>>>>>>> 383a9cf77d4a3775c1e566987581630fa2da2bc5
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -138,7 +168,43 @@ function Home({setToken}) {
                     
             )}
         
+<<<<<<< HEAD
         </div>
+=======
+        <form onSubmit={handleSubmit}>
+            <div>
+                Login
+            </div>
+            <div>
+                <label>Username: </label>
+                <input 
+                type="text" 
+                name="name" 
+                id="name" 
+                value={username}
+                onChange={handleUsername}
+                required></input>
+            </div>
+            <div>
+                <label>Password: </label>
+                <input
+                type="text"
+                id="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required></input>
+            </div>    
+            
+            <div>
+                <input 
+                type='submit' 
+                value="Login">
+                </input>
+            </div>
+        </form>
+        <button onClick={handleLogout}>Logout</button>
+    </div>
+>>>>>>> 383a9cf77d4a3775c1e566987581630fa2da2bc5
     )
 }
     
