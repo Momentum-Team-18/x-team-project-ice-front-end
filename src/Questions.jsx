@@ -11,7 +11,7 @@ function Questions() {
         <form className="questionForm">
             <input 
             type="text" 
-            placeholder="Enter your question here:">
+            placeholder="Enter your question:">
             </input>
             <input 
                 type='submit' 
@@ -21,7 +21,7 @@ function Questions() {
         <form className="answerForm">
             <input 
             type="text" 
-            placeholder="Enter your answer here:">
+            placeholder="Enter your answer:">
             </input>
             <input 
                 type='submit' 

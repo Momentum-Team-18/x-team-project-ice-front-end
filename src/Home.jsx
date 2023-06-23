@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import React from 'react'
 import axios from 'axios'
@@ -7,6 +8,7 @@ function Home ({setToken}) {
         const [username, setUsername] = useState('')
         const [password, setPassword] = useState('')
         const [email, setEmail] = useState('')
+        const [showRegistrationForm, setShowRegistrationForm] = useState(false)
 
         const handleUsername = (event) => {
             setUsername(event.target.value)
@@ -36,12 +38,20 @@ function Home ({setToken}) {
                 })
                 .then((res) => setToken(res.data.auth_user))
         }
+
+        const toggleRegistrationForm = () => {
+            setShowRegistrationForm(!showRegistrationForm)
+        }
     
         // the handle register is not working right now,
         // not exactly sure why, but i think it has something to do with the token
-    return (
-    <> 
-              
+        // okay do we need to make a new component for login, logout, and signup?
+        
+return (
+    <div> 
+        <button onClick={toggleRegistrationForm}>
+        {showRegistrationForm ? 'Hide Registration Form' : 'Click For New Account 📝'}</button>
+        {showRegistrationForm && (
         <form onSubmit={handleRegister}>
             <div>💻. New User Sign Up 💻</div>
             <div>
@@ -84,7 +94,7 @@ function Home ({setToken}) {
                 value="Register">
                 </input>
             </div>
-        </form>
+        </form>)}
         
         <form onSubmit={handleSubmit}>
             <div>
@@ -117,35 +127,8 @@ function Home ({setToken}) {
                 </input>
             </div>
         </form>
-    </>
+    </div>
     )
 }
 
 export default Home
-
-
-// import React, { useState } from 'react';
-
-// function FormButton() {
-//   const [isFormVisible, setIsFormVisible] = useState(false);
-
-//   const toggleFormVisibility = () => {
-//     setIsFormVisible(!isFormVisible);
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={toggleFormVisibility}>
-//         {isFormVisible ? 'Hide Form' : 'Show Form'}
-//       </button>
-
-//       {isFormVisible && (
-//         <form>
-//           {/* Add your form fields and submit button here */}
-//         </form>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default FormButton;
