@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import React from 'react'
 import axios from 'axios'
@@ -16,6 +15,12 @@ function Home ({setToken}) {
 
         const handleEmail = (event) => {
             setEmail(event.target.value)
+        }
+
+        const handleLogout = () => {
+            axios.post('https://questionapi.onrender.com/auth/token/logout/', {}, {
+            })
+            .then(() => {})
         }
 
         const handleSubmit = (e) => {
@@ -36,7 +41,8 @@ function Home ({setToken}) {
                     password: password,
                     email: email,
                 })
-                .then((res) => setToken(res.data.auth_user))
+                
+                .then((res) => console.log(res.data))
         }
 
         const toggleRegistrationForm = () => {
@@ -127,6 +133,7 @@ return (
                 </input>
             </div>
         </form>
+        <button onClick={handleLogout}>Logout</button>
     </div>
     )
 }
