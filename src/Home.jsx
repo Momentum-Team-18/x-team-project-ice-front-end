@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from 'react'
 import axios from 'axios'
 
-// need to put something for commit change
+
 
 function Home({setToken}) {
 
@@ -11,12 +11,12 @@ function Home({setToken}) {
     const [email, setEmail] = useState('')
     const [showRegistrationForm, setShowRegistrationForm] = useState(false)
     const [showLoginForm, setShowLoginForm] = useState(false)
+    const [logoutMessage, setLogoutMessage] = useState('')
 
     const handleUsername = (event) => {
         setUsername(event.target.value)
     }
 
-<<<<<<< HEAD
     const handleEmail = (event) => {
         setEmail(event.target.value)
     }
@@ -30,41 +30,26 @@ function Home({setToken}) {
             })
             .then((res) => setToken(res.data.auth_token))
     }
-=======
-        const handleLogout = () => {
-            axios.post('https://questionapi.onrender.com/auth/token/logout/', {}, {
-            })
-            .then(() => {})
-        }
+        
+    const handleLogout = () => {
+        axios.post('https://questionapi.onrender.com/auth/token/logout/') 
+        //  this is the error we're getting: 401 Unauthorized response status code indicates that the client request has not 
+        // // // been completed because it lacks valid authentication credentials
+        // // for the requested resource
+        .then(() => {
+            setToken(''); // Clear the token 
+            setLogoutMessage('You have been logged out.'); 
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
 
-        const handleLogout = () => {
-            axios.post('https://questionapi.onrender.com/auth/token/logout/', {}, {
-            })
-            .then(() => {})
-        }
 
-        const handleSubmit = (e) => {
-            e.preventDefault()
-            axios
-                .post('https://questionapi.onrender.com/auth/token/login/', {
-                    username: username,
-                    password: password,
-                })
-                .then((res) => setToken(res.data.auth_token))
-        }
 
-        const handleRegister = (e) => {
-            e.preventDefault()
-            axios
-                .post('https://questionapi.onrender.com/auth/users/', {
-                    username: username,
-                    password: password,
-                    email: email,
-                })
-                
-                .then((res) => console.log(res.data))
-        }
->>>>>>> 383a9cf77d4a3775c1e566987581630fa2da2bc5
+
+
+
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -173,44 +158,9 @@ function Home({setToken}) {
                     </form>
                     
             )}
-        
-<<<<<<< HEAD
-        </div>
-=======
-        <form onSubmit={handleSubmit}>
-            <div>
-                Login
-            </div>
-            <div>
-                <label>Username: </label>
-                <input 
-                type="text" 
-                name="name" 
-                id="name" 
-                value={username}
-                onChange={handleUsername}
-                required></input>
-            </div>
-            <div>
-                <label>Password: </label>
-                <input
-                type="text"
-                id="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required></input>
-            </div>    
-            
-            <div>
-                <input 
-                type='submit' 
-                value="Login">
-                </input>
-            </div>
-        </form>
         <button onClick={handleLogout}>Logout</button>
-    </div>
->>>>>>> 383a9cf77d4a3775c1e566987581630fa2da2bc5
+            {logoutMessage && <div>{logoutMessage}</div>}
+        </div>
     )
 }
     
