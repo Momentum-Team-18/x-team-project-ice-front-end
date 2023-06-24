@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import React from 'react'
 import axios from 'axios'
 
-function Questions() {
+function Profile() {
 
     const [questions, setQuestions] = useState([])
     
@@ -20,7 +20,7 @@ function Questions() {
 
     return (
     <>
-
+        <h1>Your Profile Page</h1>
         <div>
         {questions.map((question) => (
             <ul>
@@ -30,22 +30,9 @@ function Questions() {
         ))}
         </div>
 
-        <div>
-            <input type='text'>
-            </input>
-        </div>
-            <input 
-            type="text" 
-            placeholder="Enter your question:">
-            </input>
-            <input 
-                type='submit' 
-                value="Submit">
-            </input>
-
         <button onClick={handleLogout}>Logout</button>
-    </> 
+    </>       
     )
 }
 
-export default Questions
+export default Profile
