@@ -43,15 +43,7 @@ function Questions() {
             </input>
 
         <button onClick={handleLogout}>Logout</button>
-    </>
-        // <form onSubmit={handleSubmit}>
-        //     <input
-        //     type="text"
-        //     onChange={handleInputChange}
-        //     placeholder="Enter your question here"/>
-        //     <button type="Submit your question"> </button>
-        // </form>
-        
+    </> 
     )
 }
 
