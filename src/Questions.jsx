@@ -21,15 +21,14 @@ function Questions() {
     return (
     <>
 
-        <div>
-        {questions.map((question) => (
-            <ul>
-                <p>{question.question_title}</p>
-                <p>{question.question_text}</p>
-            </ul>
-        ))}
-        </div>
-
+                <div className="question-container">
+                {questions.map((question) => (
+                    <div key={question.id} className="question-box">
+                        <p className="question-title">{question.question_title}</p>
+                        <p className="question-text">{question.question_text}</p>
+                    </div>
+                ))}
+            </div>
         <div>
             <input type='text'>
             </input>

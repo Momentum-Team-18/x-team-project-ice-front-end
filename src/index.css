@@ -1,4 +1,30 @@
-:root {
+.question-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.question-box {
+    border: 2px solid #363333;
+    padding: 10px;
+    background-color: #d0e4f7;
+}
+
+.question-title {
+    font-family: fantasy;
+    font-weight: bold;
+}
+
+.question-text {
+    font-family: fantasy;
+    margin-top: 10px;
+    color: #0f0f0e;
+}
+
+
+
+
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -66,4 +92,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

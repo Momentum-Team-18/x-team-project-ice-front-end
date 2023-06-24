@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from "react";
 import React from 'react'
 import axios from 'axios'
@@ -37,7 +38,7 @@ function Home({setToken}) {
         // // // been completed because it lacks valid authentication credentials
         // // for the requested resource
         .then(() => {
-            setToken(''); // Clear the token 
+            setToken('');
             setLogoutMessage('You have been logged out.'); 
         })
         .catch((error) => {
@@ -158,7 +159,7 @@ function Home({setToken}) {
                     </form>
                     
             )}
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout}>Logout ✌🏽</button>
             {logoutMessage && <div>{logoutMessage}</div>}
         </div>
     )
