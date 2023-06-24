@@ -32,25 +32,32 @@ function Home({setToken}) {
             .then((res) => setToken(res.data.auth_token))
     }
         
-    const handleLogout = () => {
-        axios.post('https://questionapi.onrender.com/auth/token/logout/') 
-        //  this is the error we're getting: 401 Unauthorized response status code indicates that the client request has not 
-        // // // been completed because it lacks valid authentication credentials
-        // // for the requested resource
-        .then(() => {
-            setToken('');
-            setLogoutMessage('You have been logged out.'); 
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    };
-
-
-
-
-
-
+//     const handleLogout = () => {
+//         fetch('https://questionapi.onrender.com/auth/token/logout/, {
+//         method: 'POST',
+//     headers: {
+//         'Authorization': '{Token}'
+//   })
+// })
+// .then(response => {
+//   if (response.ok) {
+//     // Logout successful
+//     // Update the app's state or perform any necessary actions
+//   } else {
+//     // Handle error response
+//   }
+// })
+// .catch(error => {
+//   // Handle network or other errors
+// });
+//         .then(() => {
+//             setToken('');
+//             setLogoutMessage('You have been logged out.'); 
+//         })
+//         .catch((error) => {
+//             console.log(error);
+//         });
+//     };
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -159,8 +166,8 @@ function Home({setToken}) {
                     </form>
                     
             )}
-        <button onClick={handleLogout}>Logout ✌🏽</button>
-            {logoutMessage && <div>{logoutMessage}</div>}
+        {/* <button onClick={handleLogout}>Logout ✌🏽</button>
+            {logoutMessage && <div>{logoutMessage}</div>} */}
         </div>
     )
 }
