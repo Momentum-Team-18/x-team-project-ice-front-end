@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Home from './Home'
 import Questions from './Questions'
+import QuestionForm from './QuestionForm'
 
 const App = () => {
   const [ token, setToken ] = useState("")
@@ -12,7 +13,7 @@ const App = () => {
 
   return (
     <>
-      <Questions />
+          <Questions />
     </>
   )
 }

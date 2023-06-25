@@ -33,7 +33,7 @@ function Home({setToken}) {
     }
         
     const handleLogout = () => {
-        axios.post('https://questionapi.onrender.com/auth/token/logout/') 
+        axios.post('https://questionapi.onrender.com/auth/token/logout/' , {})
         //  this is the error we're getting: 401 Unauthorized response status code indicates that the client request has not 
         // // // been completed because it lacks valid authentication credentials
         // // for the requested resource
