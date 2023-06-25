@@ -26,7 +26,6 @@ function Questions({token}) {
             {
                 question_text: askQuestion,
                 question_title: askQuestion,
-                question_author: 1,
             },
             {
                 headers: {
@@ -44,8 +43,8 @@ function Questions({token}) {
             <div className="question-container">
                 {questions.map((question) => (
                     <div key={question.id} className="question-box">
-                        <p className="question-title">{question.question_title}</p>
-                        <p className="question-text">{question.question_text}</p>
+                        {/* <p className="question-title">{question.question_title}</p> */}
+                        <p className="question-text"><a href='#'>{question.question_text}</a></p>
                     </div>
                 ))}
             </div>
