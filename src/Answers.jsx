@@ -4,30 +4,34 @@ import axios from 'axios'
 
 function Answers ({token}) {
 
-    const [ answer, setAnswer ] = useState(null)
+    const [ answers, setAnswers ] = useState([])
 
     useEffect(() => {
         axios
-        .get('https://questionapi.onrender.com/questions/answer/',
+        .get('https://questionapi.onrender.com/questions/2/',
         {
             headers: {
-                Authorization: `token ${token}`
+                Authorization: `token ${token}`,
             }
         })
-        .then((response) => setAnswer(response.data))
+        .then((response) => setAnswers(response.data.answers))
     }, [])
-
+console.log(answers)
     return (
     <>
-        <div className="answer-container">
-        {answer && (
-            <div key={answer.id} className="answer-box">
-                <p className="answer-text">{answer.answer_text}</p>
-                <p className="answer-author">{answer.answer_author}</p>
-                <p className="related-question">{answer.related_question}</p>
-            </div>
+    <div className="answer-container">
+        {answers.length > 0 ? (
+            answers.map((answer) => (
+                <div key={answer.id} className="answer-box">
+                    <p className="answer-text">{answer.answer_text}</p>
+                    <p className="answer-author">{answer.answer_author}</p>
+                    <p className="related-question">{answer.answer_date}</p>
+                </div>
+            ))
+        ) : (
+            <p>Loading answers...</p>
         )}
-    </div>
+</div>
     </>
     )
 }
