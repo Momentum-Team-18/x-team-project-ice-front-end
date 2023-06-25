@@ -2,20 +2,22 @@ import { useState } from 'react'
 import './App.css'
 import Home from './Home'
 import Questions from './Questions'
-import QuestionForm from './QuestionForm'
+import Profile from './Profile'
+import Answers from './Answers'
 
 const App = () => {
-  const [ token, setToken ] = useState("")
+    const [ token, setToken ] = useState("")
 
-  if(!token) {
-    return <Home setToken={setToken} />
-  }
+    if(!token) {
+    return <Questions token={token} />
+    }
 
-  return (
+    return (
     <>
-          <Questions />
+        <Home setToken={setToken} />
+        <Questions token={token} />
     </>
-  )
+    )
 }
 
 export default App
