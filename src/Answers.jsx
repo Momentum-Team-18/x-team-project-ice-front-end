@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import React from 'react'
 import axios from 'axios'
 
-function Answers ({token}) {
+function Answers ({ token, selectedQuestionId }) {
 
     const [ answers, setAnswers ] = useState([])
 
     useEffect(() => {
         axios
-        .get('https://questionapi.onrender.com/questions/2/',
+        .get(`https://questionapi.onrender.com/questions/${selectedQuestionId}/`,
         {
             headers: {
                 Authorization: `token ${token}`,
@@ -17,7 +17,10 @@ function Answers ({token}) {
         .then((response) => setAnswers(response.data.answers))
     }, [])
 console.log(answers)
+console.log(selectedQuestionId)
+
     return (
+        
     <>
     <div className="answer-container">
         {answers.length > 0 ? (
@@ -29,7 +32,7 @@ console.log(answers)
                 </div>
             ))
         ) : (
-            <p>Loading answers...</p>
+            <p>Login to see answers...</p>
         )}
 </div>
     </>
