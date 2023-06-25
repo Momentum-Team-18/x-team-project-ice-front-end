@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import React from 'react'
 import axios from 'axios'
+import IndividualQuestion from './IndividualQuestion'
 
 function Questions({token}) {
 
     const [ questions, setQuestions ] = useState([])
     const [ askQuestion, setAskQuestion ] = useState('')
-    
+    const [ selectedQuestionId, setSelectedQuestionId] = useState(null)
+
     // const handleLogout = () => {
     //     axios.post('https://questionapi.onrender.com/auth/token/logout/')
     //     .then(() => {})
@@ -37,14 +39,22 @@ function Questions({token}) {
                 setAskQuestion('')
             })
         }
-
+    const handleQuestionBoxClick = (questionId) => {
+        setSelectedQuestionId(questionId);
+        }
     return (
     <>
-            <div className="question-container">
-                {questions.map((question) => (
-                    <div key={question.id} className="question-box">
-                        {/* <p className="question-title">{question.question_title}</p> */}
-                        <p className="question-text"><a href='#'>{question.question_text}</a></p>
+        <div className="question-container">
+        {questions.map((question) => (
+        <div
+        key={question.id}
+        className={`question-box ${selectedQuestionId === question.id ? 'active' : ''}`} 
+                onClick={() => handleQuestionBoxClick(question.id)} 
+            >
+            <p className="question-title">{question.question_title}</p>
+            {selectedQuestionId === question.id && ( 
+            <p className="question-text">{question.question_text}</p>
+            )}
                     </div>
                 ))}
             </div>
@@ -58,6 +68,12 @@ function Questions({token}) {
             onClick={handlePost}>
                 Post
             </button>
+
+            {selectedQuestionId && (
+                <div>
+                    <IndividualQuestion questionId={selectedQuestionId} />
+                </div>
+            )}
 
         {/* <button onClick={handleLogout}>Logout</button> */}
     </> 
