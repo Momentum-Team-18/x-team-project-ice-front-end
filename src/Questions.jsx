@@ -33,7 +33,7 @@ const [selectedQuestionId, setSelectedQuestionId] = useState(null);
     };
 
     const handleQuestionBoxClick = (questionId) => {
-    setSelectedQuestionId(questionId);
+        setSelectedQuestionId(questionId);
     };
 
     return (
