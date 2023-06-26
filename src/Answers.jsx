@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import React from 'react'
 import axios from 'axios'
 
-function Answers ({ token, selectedQuestionId }) {
+function Answers ({ token, questionId }) {
 
     const [ answers, setAnswers ] = useState([])
 
     useEffect(() => {
         axios
-        .get(`https://questionapi.onrender.com/questions/${selectedQuestionId}/`,
+        .get(`https://questionapi.onrender.com/questions/${questionId}/`,
         {
             headers: {
                 Authorization: `token ${token}`,
@@ -16,8 +16,7 @@ function Answers ({ token, selectedQuestionId }) {
         })
         .then((response) => setAnswers(response.data.answers))
     }, [])
-console.log(answers)
-console.log(selectedQuestionId)
+    console.log(questionId)
 
     return (
         
