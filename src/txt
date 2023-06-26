@@ -1,0 +1,4 @@
+axios
+    .get('https://questionapi.onrender.com/questions/')
+    .then((response) => setQuestions(response.data))
+})
