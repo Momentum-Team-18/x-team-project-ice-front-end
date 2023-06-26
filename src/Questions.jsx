@@ -27,10 +27,13 @@ const [selectedQuestionId, setSelectedQuestionId] = useState(null);
         }
         })
         .then(() => {
-        setAskQuestion('');
-        })
-        .catch((error) => console.error(error));
-    };
+            setAskQuestion('');
+            axios
+                .get('https://questionapi.onrender.com/questions/')
+                .then((response) => setQuestions(response.data))
+            })
+            .catch((error) => console.error(error));
+        };
 
     const handleQuestionBoxClick = (questionId) => {
         setSelectedQuestionId(questionId);
