@@ -16,7 +16,23 @@ function Answers ({ token, questionId }) {
         })
         .then((response) => setAnswers(response.data.answers))
     }, [])
-    console.log(questionId)
+    
+    const handleCreateAnswer = (e) => {
+        e.preventDefault();
+        axios
+            .post('https://questionapi.onrender.com/questions/answer/', {
+            question_text: askQuestion,
+            question_title: askQuestion,
+            }, {
+            headers: {
+                Authorization: `token ${token}`
+            }
+            })
+            .then(() => {
+            setAskQuestion('');
+            })
+            .catch((error) => console.error(error));
+        };
 
     return (
         
@@ -33,6 +49,7 @@ function Answers ({ token, questionId }) {
         ) : (
             <p>Login to see answers...</p>
         )}
+
 </div>
     </>
     )
