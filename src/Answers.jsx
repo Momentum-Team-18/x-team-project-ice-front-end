@@ -5,7 +5,15 @@ import axios from 'axios'
 function Answers ({ token, questionId }) {
 
     const [ answers, setAnswers ] = useState([])
+    const [ createAnswer, setCreateAnswer ] = useState('')
 
+
+    useEffect(() => {
+        axios
+        .get(`https://questionapi.onrender.com/questions/${questionId}/`)
+        .then((response) => setAnswers(response.data.answers))
+    }, [])
+// this get request makes it possible for an unauthenticated use to see answers to specific questions
     useEffect(() => {
         axios
         .get(`https://questionapi.onrender.com/questions/${questionId}/`,
@@ -21,17 +29,17 @@ function Answers ({ token, questionId }) {
         e.preventDefault();
         axios
             .post('https://questionapi.onrender.com/questions/answer/', {
-            question_text: askQuestion,
-            question_title: askQuestion,
+            answer_text: createAnswer,
+            related_question: {questionId},
             }, {
             headers: {
                 Authorization: `token ${token}`
             }
             })
             .then(() => {
-            setAskQuestion('');
+            setCreateAnswer('');
             })
-            .catch((error) => console.error(error));
+            // .catch((error) => console.error(error));
         };
 
     return (
@@ -49,8 +57,13 @@ function Answers ({ token, questionId }) {
         ) : (
             <p>Login to see answers...</p>
         )}
-
-</div>
+            <input
+            type="text"
+            placeholder="Add your answer:"
+            onChange={(e) => setCreateAnswer(e.target.value)}>
+            </input>
+            <button onClick={handleCreateAnswer}>Add Answer</button>
+    </div>
     </>
     )
 }
