@@ -1,26 +1,65 @@
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('fonts/PressStart2P-Regular.ttf') format('truetype');
+  }
+  
 .question-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-}
+  }
+  
 
-.question-box {
+.question-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+
+  .question-box {
     border: 2px solid #363333;
     padding: 10px;
-    background-color: #d0e4f7;
-}
+    background-color: #008080;
+    transition: background-color 0.3s ease;
+    perspective: 1000px;
+  }
+  
+  .question-box:hover {
+    background-color: #FF69B4;
+  }
+  
+  .question-box.active {
+    background-color: #800080;
+    transform-style: preserve-3d;
+    animation: flip 0.6s;
+  }
+  
+  @keyframes flip {
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(180deg);
+    }
+    100% {
+      transform: rotateY(0deg);
+    }
+  }
+  
 
-.question-title {
-    font-family: fantasy;
+  .question-title {
+    font-family: 'Press Start 2P', cursive;
     font-weight: bold;
-}
+  }
 
-.question-text {
-    font-family: fantasy;
-    margin-top: 10px;
-    color: #0f0f0e;
-}
 
+
+
+
+    /* background-image: url('https://upload.wikimedia.org/wikipedia/en/3/36/Solo_Jazz_design.jpg'); */
+    
+   
 
 
 
