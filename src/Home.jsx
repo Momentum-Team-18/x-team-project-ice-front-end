@@ -5,158 +5,158 @@ import axios from 'axios'
 import './App.css';
 
 function Home({ setToken }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [logoutMessage, setLogoutMessage] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+    const [showLoginForm, setShowLoginForm] = useState(false);
+    const [logoutMessage, setLogoutMessage] = useState('');
 
-  const handleUsername = (event) => {
+const handleUsername = (event) => {
     setUsername(event.target.value);
-  };
+};
 
-  const handleEmail = (event) => {
+const handleEmail = (event) => {
     setEmail(event.target.value);
-  };
+};
 
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('https://questionapi.onrender.com/auth/token/login/', {
+    .post('https://questionapi.onrender.com/auth/token/login/', {
         username: username,
         password: password,
-      })
-      .then((res) => setToken(res.data.auth_token));
-  };
+    })
+    .then((res) => setToken(res.data.auth_token));
+};
 
-  const handleLogout = () => {
+    const handleLogout = () => {
     axios
-      .post(
+    .post(
         'https://questionapi.onrender.com/auth/token/logout/',
         {},
         {
-          headers: {
+        headers: {
             Authorization: `Token ${token}`,
-          },
+        },
         }
-      )
-      .then(() => {
+    )
+    .then(() => {
         setToken('');
         setLogoutMessage('Logged out successfully.');
-      });
-  };
+    });
+};
 
-  const handleRegister = (e) => {
+const handleRegister = (e) => {
     e.preventDefault();
     axios
-      .post('https://questionapi.onrender.com/auth/users/', {
+    .post('https://questionapi.onrender.com/auth/users/', {
         username: username,
         password: password,
         email: email,
-      })
-      .then((res) => setToken(res.data.auth_user));
-  };
+    })
+    .then((res) => setToken(res.data.auth_user));
+};
 
-  const toggleRegistrationForm = () => {
+const toggleRegistrationForm = () => {
     setShowRegistrationForm(!showRegistrationForm);
-  };
+};
 
-  const toggleLoginForm = () => {
+const toggleLoginForm = () => {
     setShowLoginForm(!showLoginForm);
-  };
+};
 
-  return (
+return (
     <div>
-      <button className="button registration-button" onClick={toggleRegistrationForm}>
+    <button className="button registration-button" onClick={toggleRegistrationForm}>
         {showRegistrationForm ? 'Hide Registration Form' : 'Click For New Account 📝'}
-      </button>
-      {showRegistrationForm && (
+    </button>
+    {showRegistrationForm && (
         <form className="form" onSubmit={handleRegister}>
-          <div>💻. New User Sign Up 💻</div>
-          <div>
+        <div>💻. New User Sign Up 💻</div>
+        <div>
             <label>Email: </label>
             <input
-              type="text"
-              name="name"
-              id="name"
-              value={email}
-              placeholder="Enter Your Email..."
-              onChange={handleEmail}
-              required
+            type="text"
+            name="name"
+            id="name"
+            value={email}
+            placeholder="Enter Your Email..."
+            onChange={handleEmail}
+            required
             />
-          </div>
-          <div>
+        </div>
+        <div>
             <label>Username: </label>
             <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Choose a Username..."
-              value={username}
-              onChange={handleUsername}
-              required
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Choose a Username..."
+            value={username}
+            onChange={handleUsername}
+            required
             />
-          </div>
-          <div>
+        </div>
+        <div>
             <label>Password: </label>
             <input
-              type="text"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Choose a Password..."
-              required
+            type="text"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Choose a Password..."
+            required
             />
-          </div>
-          <div>
+        </div>
+        <div>
             <input type="submit" className="button" value="Register" />
-          </div>
+        </div>
         </form>
-      )}
+    )}
 
-      <button className="button login-button" onClick={toggleLoginForm}>
+    <button className="button login-button" onClick={toggleLoginForm}>
         {showLoginForm ? 'Hide Login Form' : 'Show Login Form'}
-      </button>
-      {showLoginForm && (
+    </button>
+    {showLoginForm && (
         <form className="form" onSubmit={handleSubmit}>
-          <div>
+        <div>
             <label>Username: </label>
             <input
-              type="text"
-              name="name"
-              id="name"
-              value={username}
-              onChange={handleUsername}
-              required
+            type="text"
+            name="name"
+            id="name"
+            value={username}
+            onChange={handleUsername}
+            required
             />
-          </div>
-          <div>
+        </div>
+        <div>
             <label>Password: </label>
             <input
-              type="text"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+            type="text"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
             />
-          </div>
-          <div>
+        </div>
+        <div>
             <input type="submit" className="button" value="Login" />
-          </div>
+        </div>
         </form>
-      )}
+    )}
 
-      <button className="button" onClick={handleLogout}>
+    <button className="button" onClick={handleLogout}>
         Logout ✌🏽
-      </button>
-      {logoutMessage && <div>{logoutMessage}</div>}
+    </button>
+    {logoutMessage && <div>{logoutMessage}</div>}
     </div>
-  );
+);
 }
 
 Home.propTypes = {
-  setToken: PropTypes.func.isRequired,
+setToken: PropTypes.func.isRequired,
 };
 
 export default Home;
