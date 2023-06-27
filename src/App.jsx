@@ -13,7 +13,7 @@ const App = () => {
     <>
       <Home setToken={setToken}/>
       <Questions token={token} />
-      {/* <Answers token={token} /> */}
+      
     </>
     )
   }
@@ -28,3 +28,20 @@ const App = () => {
 }
 
 export default App
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//   return (
+//     <>
+//       <Home setToken={setToken} />
+//       {token && (
+//         <>
+//           <Questions token={token} />
+//           <Answers token={token} />
+//         </>
