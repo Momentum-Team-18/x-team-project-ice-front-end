@@ -6,25 +6,24 @@ import Profile from './Profile'
 import Answers from './Answers'
 
 const App = () => {
-  const [ token, setToken ] = useState("")
+    const [ token, setToken ] = useState("")
 
-  if(!token) {
+    if(!token) {
     return (
     <>
-      <Home setToken={setToken}/>
-      <Questions token={token} />
-      
+        <Home setToken={setToken}/>
+        <Questions token={token} />
     </>
     )
-  }
+}
 
-  return (
+    return (
     <>
-      <Home setToken={setToken} />
-      <Questions token={token} />
-      <Answers token={token} />
+    <Home setToken={setToken} />
+    <Questions token={token} />
+    <Answers token={token} />
     </>
-  )
+)
 }
 
 export default App

@@ -21,7 +21,7 @@ body {
   background-color: #800080;
   transition: background-color 0.3s ease;
   perspective: 1000px;
-  filter: none; /* Clear by default */
+  filter: none; 
 }
 
 .question-box:hover {
@@ -43,6 +43,28 @@ body {
   overflow: auto;
 }
 
+.button {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  background-color: #800080;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #FF69B4;
+}
+
+.registration-button {
+  margin-top: 20px;
+}
+
+.login-button {
+  margin-top: 10px;
+}
 
 
 
