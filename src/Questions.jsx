@@ -1,18 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from 'react';
 import axios from 'axios';
 import IndividualQuestion from './IndividualQuestion';
 
 function Questions({ token }) {
-const [questions, setQuestions] = useState([]);
-const [askQuestion, setAskQuestion] = useState('');
-const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+    const [questions, setQuestions] = useState([]);
+    const [askQuestion, setAskQuestion] = useState('');
+    const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+    const questionContainerRef = useRef(null);
 
     useEffect(() => {
     axios
         .get('https://questionapi.onrender.com/questions/')
         .then((response) => setQuestions(response.data))
         .catch((error) => console.error(error));
+
+    // Add event listener to handle clicks outside question box
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      // Clean up the event listener when component unmounts
+        document.removeEventListener("click", handleOutsideClick);
+    };
     }, []);
 
     const handlePost = (e) => {
@@ -36,22 +45,29 @@ const [selectedQuestionId, setSelectedQuestionId] = useState(null);
     };
 
     const handleQuestionBoxClick = (questionId) => {
-        setSelectedQuestionId(questionId);
+    setSelectedQuestionId(questionId);
+    };
+
+    const handleOutsideClick = (event) => {
+    // Close question box if clicked outside
+    if (!questionContainerRef.current.contains(event.target)) {
+    setSelectedQuestionId(null);
+    }
     };
 
     return (
     <>
-        <div className="question-container">
+        <div className="question-container" ref={questionContainerRef}>
         {questions.map((question) => (
-            <div
+        <div
             key={question.id}
             className={`question-box ${selectedQuestionId === question.id ? 'active' : ''}`}
             onClick={() => handleQuestionBoxClick(question.id)}
-            >
+        >
             <p className="question-title">{question.question_title}</p>
             {selectedQuestionId === question.id && (
                 <div className="question-details">
-                {/* <p className="question-text">{question.question_text}</p> */}
+        
                 <IndividualQuestion questionId={question.id} token={token} />
                 </div>
             )}
@@ -63,7 +79,7 @@ const [selectedQuestionId, setSelectedQuestionId] = useState(null);
         placeholder="Enter your question:"
         onChange={(e) => setAskQuestion(e.target.value)}
         />
-        <button onClick={handlePost}>Post</button>
+            <button onClick={handlePost}>Post</button>
     </>
     );
 }
