@@ -8,21 +8,10 @@ import Answers from './Answers'
 const App = () => {
     const [ token, setToken ] = useState("")
 
-    if(!token) {
     return (
     <>
-        <Home updateToken={setToken}/>
-            <Questions token={token} />
-            <Answers token={token} />
-    </>
-    )
-}
-
-    return (
-    <>
-    <Home updateToken={setToken} />
-    <Questions token={token} />
-    <Answers token={token} />
+        <Home updateToken={setToken} />
+        <Questions token={token} />
     </>
 )
 }
