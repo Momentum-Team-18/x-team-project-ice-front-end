@@ -30,7 +30,7 @@ function Answers ({ token, questionId }) {
         axios
             .post('https://questionapi.onrender.com/questions/answer/', {
             answer_text: createAnswer,
-            related_question: {questionId},
+            related_question: questionId,
             }, {
             headers: {
                 Authorization: `token ${token}`
