@@ -11,7 +11,7 @@ const App = () => {
     if(!token) {
     return (
     <>
-        <Home setToken={setToken}/>
+        <Home updateToken={setToken}/>
             <Questions token={token} />
             <Answers token={token} />
     </>
@@ -20,7 +20,7 @@ const App = () => {
 
     return (
     <>
-    <Home setToken={setToken} />
+    <Home updateToken={setToken} />
     <Questions token={token} />
     <Answers token={token} />
     </>

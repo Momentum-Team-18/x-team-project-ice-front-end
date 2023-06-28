@@ -15,7 +15,7 @@ function Home({ updateToken }) {
     useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
-    setToken(storedToken);
+    updateToken(storedToken);
     }
     }, []);
 
@@ -35,7 +35,7 @@ function Home({ updateToken }) {
         password: password,
         })
         .then((res) => {
-        setToken(res.data.auth_token);
+        updateToken(res.data.auth_token);
         localStorage.setItem('token', res.data.auth_token);
         });
     };
@@ -67,7 +67,7 @@ function Home({ updateToken }) {
         email: email,
         })
         .then((res) => {
-        setToken(res.data.auth_token);
+        updateToken(res.data.auth_token);
         localStorage.setItem('token', res.data.auth_token);
         });
     };
