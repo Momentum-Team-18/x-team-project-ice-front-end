@@ -36,9 +36,9 @@ function Questions({ token, questionId }) {
         .catch((error) => console.error(error));
     };
 
-    const handleQuestionBoxClick = (questionId) => {
-        setSelectedQuestionId(questionId);
-    };
+    // const handleQuestionBoxClick = (questionId) => {
+    //     setSelectedQuestionId(questionId);
+    // };
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -54,8 +54,6 @@ function Questions({ token, questionId }) {
         })
         .then(() => {
         setDeleteQuestion('');
-        axios
-            .then((response) => setDeleteQuestion(response.data))
         })
     };
 
@@ -66,7 +64,7 @@ function Questions({ token, questionId }) {
             <div
             key={question.id}
             className={`question-box ${selectedQuestionId === question.id ? 'active' : ''}`}
-            onClick={() => handleQuestionBoxClick(question.id)}
+            // onClick={() => handleQuestionBoxClick(question.id)}
             >
             <p className="question-title">{question.question_title}</p>
             <button className={`close-button ${selectedQuestionId === question.id ? 'show' : ''}`} onClick={handleQuestionBoxClose}>
