@@ -1,163 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-  background-image: url('https://upload.wikimedia.org/wikipedia/en/3/36/Solo_Jazz_design.jpg');
-  background-repeat: repeat;
-  background-size: 25%;
-  background-color: #008080;
-  font-family: 'Press Start 2P', cursive;
-  cursor: pointer;
-}
-
-.question-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.question-box {
-  border: 2px solid #363333;
-  padding: 10px;
-  background-color: #800080;
-  transition: background-color 0.3s ease;
-  perspective: 1000px;
-  filter: none;
-}
-
-.question-box:hover {
-  background-color: #FF69B4;
-}
-
-.question-box.active {
-  background-color: #008080;
-  transform-style: preserve-3d;
-  animation: flip 0.6s;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(2);
-  z-index: 999;
-  filter: none;
-  max-width: 80%;
-  max-height: 80%;
-  overflow: auto;
-}
-
-.button {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 16px;
-  background-color: #b1b1b1ba;
-  color: #ffffff;
-  border: none;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #FF69B4;
-}
-
-.registration-button {
-  margin-top: 20px;
-}
-
-.login-button {
-  margin-top: 10px;
-}
-
-.answer-container {
-  margin-top: 10px;
-}
-
-.answer-box {
-  border: 2px solid #363333;
-  padding: 10px;
-  background-color: #FFC0CB;
-}
-
-.answer-box p {
-  margin: 0;
-  color: #333333;
-}
-
-.answer-box-inner {
-  background-color: #FFECF0;
-  padding: 10px;
-  border: 2px solid #888888;
-}
-
-input[type="text"],
-button {
-  margin-top: 10px;
-}
-
-input[type="text"] {
-  padding: 5px;
-  width: 100%;
-}
-
-button {
-  padding: 5px 10px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-.close-button {
-  display: none;
-  position: absolute;
-  top: -5.5px;
-  left: 1px;
-font-size: .4rem;
-    padding: 5px;
-  background-color: #b1b1b1ba;
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.close-button:hover {
-  background-color: #ff69b4;
-}
-
-.question-box {
-  position: relative;
-}
-
-.question-details {
-  padding: 10px;
-  border: 2px solid #363333;
-  background-color: #800080;
-  transition: background-color 0.3s ease;
-  perspective: 1000px;
-  filter: none;
-  position: relative;
-}
-
-.question-box:hover .question-details {
-  background-color: #FF69B4;
-}
-
-.question-box.active .close-button {
-  display: block;
-}
-
-
-
-
-
-
-
-/* @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-body {
     background-image: url('https://upload.wikimedia.org/wikipedia/en/3/36/Solo_Jazz_design.jpg');
     background-repeat: repeat;
     background-size: 25%;
@@ -203,10 +46,10 @@ body {
 .button {
     font-family: 'Press Start 2P', cursive;
     font-size: 16px;
-    background-color: #b1b1b1ba;
+    background-color: #800080;
     color: #ffffff;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 20px;
     margin-bottom: 10px;
     cursor: pointer;
 }
@@ -222,7 +65,7 @@ body {
 .login-button {
     margin-top: 10px;
 }
- */
+
 
 
 
