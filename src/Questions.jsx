@@ -3,10 +3,11 @@ import React from 'react';
 import axios from 'axios';
 import IndividualQuestion from './IndividualQuestion';
 
-function Questions({ token }) {
-const [questions, setQuestions] = useState([]);
-const [askQuestion, setAskQuestion] = useState('');
-const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+function Questions({ token, questionId }) {
+  const [questions, setQuestions] = useState([]);
+  const [askQuestion, setAskQuestion] = useState('');
+  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+  const [deleteQuestion, setDeleteQuestion] = useState('');
 
     useEffect(() => {
     axios
@@ -39,7 +40,26 @@ const [selectedQuestionId, setSelectedQuestionId] = useState(null);
         setSelectedQuestionId(questionId);
     };
 
-    return (
+  const handleDelete = (e) => {
+    e.preventDefault();
+    axios
+        .delete(`https://questionapi.onrender.com/questions/delete/${questionId}/`,
+        {
+            detail: questionId,
+        },
+        {
+        headers: {
+            Authorization: `token ${token}`
+        }
+        })
+        .then(() => {
+        setDeleteQuestion('');
+        axios
+            .then((response) => setDeleteQuestion(response.data))
+        })
+    };
+
+  return (
     <>
         <div className="question-container">
         {questions.map((question) => (
@@ -49,13 +69,17 @@ const [selectedQuestionId, setSelectedQuestionId] = useState(null);
             onClick={() => handleQuestionBoxClick(question.id)}
             >
             <p className="question-title">{question.question_title}</p>
+            <button className={`close-button ${selectedQuestionId === question.id ? 'show' : ''}`} onClick={handleQuestionBoxClose}>
+              I'm Outtie!
+            </button>
+            <p className="question-text">{question.question_text}</p>
             {selectedQuestionId === question.id && (
-                <div className="question-details">
-                {/* <p className="question-text">{question.question_text}</p> */}
+              <div className="question-details">
                 <IndividualQuestion questionId={question.id} token={token} />
                 </div>
             )}
-            </div>
+            <button onClick={handleDelete}>Delete</button>
+          </div>
         ))}
         </div>
         <input
@@ -69,38 +93,3 @@ const [selectedQuestionId, setSelectedQuestionId] = useState(null);
 }
 
 export default Questions;
-
-
-
-
-
-
-
-{/* // 
-//             {/* <Answers token={token} selectedQuestionId={selectedQuestionId}/> */}
-//                     </div>
-//                 ))} */}
-//             </div>
-//             <input 
-//             type="text" 
-//             placeholder="Enter your question:"
-//             onChange={(e) => setAskQuestion(e.target.value)}
-//             >
-//             </input>
-//             <button
-//             onClick={handlePost}>
-//                 Post
-//             </button>
-
-//             {selectedQuestionId && (
-//                 <div>
-//                     <IndividualQuestion questionId={selectedQuestionId} />
-//                 </div>
-//             )}
-
-//         {/* <button onClick={handleLogout}>Logout</button> */}
-//     </> 
-//     )
-// }
-
-// export default Questions

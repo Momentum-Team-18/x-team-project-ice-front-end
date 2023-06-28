@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import React from 'react'
 import axios from 'axios'
+import dayjs from 'dayjs'
 
 function Answers ({ token, questionId }) {
 
@@ -47,13 +48,15 @@ function Answers ({ token, questionId }) {
     <>
     <div className="answer-container">
         {answers.length > 0 ? (
-            answers.map((answer) => (
-                <div key={answer.id} className="answer-box">
-                    <p className="answer-text">{answer.answer_text}</p>
-                    <p className="answer-author">{answer.answer_author}</p>
-                    <p className="related-question">{answer.answer_date}</p>
-                </div>
-            ))
+          answers.map((answer) => (
+            <div key={answer.id} className="answer-box">
+              <div className="answer-box-inner">
+                <p className="answer-author">{answer.answer_author}</p>
+                <p className="answer-text">{answer.answer_text}</p>
+                <p className="related-question">{dayjs(answer.answer_date).format('MM/DD/YYYY')}</p>
+              </div>
+            </div>
+          ))
         ) : (
             <p>Login to see answers...</p>
         )}

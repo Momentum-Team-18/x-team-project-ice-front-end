@@ -2,35 +2,52 @@ import { useState, useEffect } from "react";
 import React from 'react'
 import axios from 'axios'
 
-function Profile() {
+function Profile( {token} ) {
 
-    const [questions, setQuestions] = useState([])
-    
-    const handleLogout = () => {
-        axios.post('https://questionapi.onrender.com/auth/token/logout/')
-        .then(() => {})
-    }
+    const [userQuestions, setUserQuestions] = useState([])
+    const [userAnswers, setUserAnswers] = useState([])
 
     useEffect(() => {
         axios
-        .get('https://questionapi.onrender.com/questions/')
-        .then((response) => setQuestions(response.data))
+        .get('https://questionapi.onrender.com/questions/user/',
+        {
+            headers: {
+                Authorization: `token ${token}`,
+            },
+        })
+        .then((response) => setUserQuestions(response.data))
     }, [])
-    console.log(questions)
 
+    useEffect(() => {
+        axios
+        .get('https://questionapi.onrender.com/user/answers/',
+        {
+            headers: {
+                Authorization: `token ${token}`,
+            },
+        })
+        .then((response) => setUserAnswers(response.data))
+    }, [])
     return (
     <>
         <h1>Your Profile Page</h1>
+        <h2>Questions</h2>
         <div>
-        {questions.map((question) => (
+        {userQuestions.map((userQuestion) => (
             <ul>
-                <p>{question.question_title}</p>
-                <p>{question.question_text}</p>
+                <p>{userQuestion.question_text}</p>
+            </ul>
+        ))}
+        </div>
+        <h2>Answers</h2>
+        <div>
+        {userAnswers.map((userAnswer) => (
+            <ul>
+                <p>{userAnswer.answer_text}</p>
             </ul>
         ))}
         </div>
 
-        <button onClick={handleLogout}>Logout</button>
     </>       
     )
 }

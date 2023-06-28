@@ -17,12 +17,12 @@ const App = () => {
     </>
     )
 }
-
     return (
     <>
-    <Home setToken={setToken} />
-    <Questions token={token} />
-    <Answers token={token} />
+        <Home setToken={setToken} />
+        <Questions token={token} />
+        <Answers token={token} />
+        {/* <Profile token={token}/> */}
     </>
 )
 }
