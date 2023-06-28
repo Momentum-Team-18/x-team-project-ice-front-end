@@ -64,7 +64,7 @@ function Questions({ token, questionId }) {
             <div
             key={question.id}
             className={`question-box ${selectedQuestionId === question.id ? 'active' : ''}`}
-            // onClick={() => handleQuestionBoxClick(question.id)}
+            onClick={() => handleQuestionBoxClick(question.id)}
             >
             <p className="question-title">{question.question_title}</p>
             <button className={`close-button ${selectedQuestionId === question.id ? 'show' : ''}`} onClick={handleQuestionBoxClick}>
