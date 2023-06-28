@@ -12,7 +12,8 @@ const App = () => {
     return (
     <>
         <Home setToken={setToken}/>
-        <Questions token={token} />
+            <Questions token={token} />
+            <Answers token={token} />
     </>
     )
 }
