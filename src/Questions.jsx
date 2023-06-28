@@ -1,83 +1,71 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import React from 'react';
 import axios from 'axios';
 import IndividualQuestion from './IndividualQuestion';
 
 function Questions({ token }) {
-  const [questions, setQuestions] = useState([]);
-  const [askQuestion, setAskQuestion] = useState('');
-  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+const [questions, setQuestions] = useState([]);
+const [askQuestion, setAskQuestion] = useState('');
+const [selectedQuestionId, setSelectedQuestionId] = useState(null);
 
-  useEffect(() => {
+    useEffect(() => {
     axios
-      .get('https://questionapi.onrender.com/questions/')
-      .then((response) => setQuestions(response.data))
-      .catch((error) => console.error(error));
-  }, []);
+        .get('https://questionapi.onrender.com/questions/')
+        .then((response) => setQuestions(response.data))
+        .catch((error) => console.error(error));
+    }, []);
 
-  const handlePost = (e) => {
+    const handlePost = (e) => {
     e.preventDefault();
     axios
-      .post(
-        'https://questionapi.onrender.com/questions/',
-        {
-          question_text: askQuestion,
-          question_title: askQuestion,
-        },
-        {
-          headers: {
-            Authorization: `token ${token}`,
-          },
+        .post('https://questionapi.onrender.com/questions/', {
+        question_text: askQuestion,
+        question_title: askQuestion,
+        }, {
+        headers: {
+            Authorization: `token ${token}`
         }
-      )
-      .then(() => {
+        })
+        .then(() => {
         setAskQuestion('');
         axios
-          .get('https://questionapi.onrender.com/questions/')
-          .then((response) => setQuestions(response.data));
-      })
-      .catch((error) => console.error(error));
-  };
+            .get('https://questionapi.onrender.com/questions/')
+            .then((response) => setQuestions(response.data))
+        })
+        .catch((error) => console.error(error));
+    };
 
-  const handleQuestionBoxClick = (questionId) => {
-    setSelectedQuestionId(questionId === selectedQuestionId ? null : questionId);
-  };
+    const handleQuestionBoxClick = (questionId) => {
+        setSelectedQuestionId(questionId);
+    };
 
-  const handleQuestionBoxClose = (e) => {
-    e.stopPropagation();
-    setSelectedQuestionId(null);
-  };
-
-  return (
+    return (
     <>
-      <div className="question-container">
+        <div className="question-container">
         {questions.map((question) => (
-          <div
+            <div
             key={question.id}
             className={`question-box ${selectedQuestionId === question.id ? 'active' : ''}`}
             onClick={() => handleQuestionBoxClick(question.id)}
-          >
-            <button className={`close-button ${selectedQuestionId === question.id ? 'show' : ''}`} onClick={handleQuestionBoxClose}>
-              Im outtie!
-            </button>
+            >
             <p className="question-title">{question.question_title}</p>
             {selectedQuestionId === question.id && (
-              <div className="question-details">
-                <p className="question-text">{question.question_text}</p>
+                <div className="question-details">
+                {/* <p className="question-text">{question.question_text}</p> */}
                 <IndividualQuestion questionId={question.id} token={token} />
-              </div>
+                </div>
             )}
-          </div>
+            </div>
         ))}
-      </div>
-      <input
+        </div>
+        <input
         type="text"
         placeholder="Enter your question:"
-        value={askQuestion}
         onChange={(e) => setAskQuestion(e.target.value)}
-      />
-      <button onClick={handlePost}>Post</button>
+        />
+        <button onClick={handlePost}>Post</button>
     </>
-  );
+    );
 }
 
 export default Questions;
