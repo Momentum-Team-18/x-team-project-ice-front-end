@@ -84,6 +84,12 @@ function Answers({ token, questionId }) {
         ) : (
           <p></p>
         )}
+        <input
+          type="text"
+          placeholder="Add your answer:"
+          onChange={(e) => setCreateAnswer(e.target.value)}
+        />
+        <button onClick={handleCreateAnswer}>Add Answer</button>
       </div>
     </>
   );

@@ -17,6 +17,7 @@ function Home({ updateToken }) {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
     updateToken(storedToken);
+    setToken(storedToken);
     }
     }, []);
 
@@ -53,7 +54,7 @@ function Home({ updateToken }) {
         }
         )
         .then(() => {
-        setToken('');
+        setToken(null);
         setLogoutMessage('Logged out successfully.');
         localStorage.removeItem('token');
         });
