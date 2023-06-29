@@ -34,6 +34,12 @@ function Answers({ token, questionId }) {
       )
       .then(() => {
         setCreateAnswer('');
+        axios
+        .get('https://questionapi.onrender.com/questions/${questionId}/answer/')
+        .then((response) => {
+          setAnswers(response.data);
+        })
+        .catch((error) => console.error(error));
       })
       .catch((error) => console.error(error));
   };
