@@ -77,7 +77,7 @@ function Answers({ token, questionId }) {
                     <button onClick={() => handleAcceptAnswer(answer.id)}>Accept this answer</button>
                   </>
                 )}
-                {answer.accepted && <span className="accepted-answer">&#10003;</span>}
+                {answer.accepted && <span className="accepted-answer">&#10003; Answer Accepted &#10003;</span>}
               </div>
             </div>
           ))
