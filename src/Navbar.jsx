@@ -13,11 +13,11 @@ const NavBar = ({ token }) => {
         </div>
         <br />
         <div>
-            <Link to="/Register" onClick={handleAuthentication}>Sign Up/Login</Link>
+            <Link to="/Questions" onClick={handleAuthentication}>Home</Link>
         </div>
         <br />
         <div>
-            <Link to="/Home" onClick={handleFeed}>Home</Link>
+            <Link to="/Home" onClick={handleFeed}>Sign Up/Login</Link>
         </div>
     </>
     )

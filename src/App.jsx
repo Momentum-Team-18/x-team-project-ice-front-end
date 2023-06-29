@@ -10,20 +10,17 @@ import NavBar from "./Navbar";
 const App = () => {
   const [token, setToken] = useState("");
 
+
   return (
     <>
     <NavBar/>
-      {/* {token ? ( */}
           <Routes>
             <Route path="/Home" element={<Home updateToken={setToken} />} />
             <Route path="/Profile" element={<Profile token={token} />} />
           </Routes>
         
-        {/* ) : ( */}
-        {/* (<Home updateToken={setToken} />), */}
-        (<Questions token={token} />),
-        (<Answers token={token} />)
-        {/* )} */}
+        <Questions token={token} />
+        <Answers token={token} />
     </>
   );
 };
