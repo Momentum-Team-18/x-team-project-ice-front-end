@@ -6,7 +6,6 @@ import Profile from "./Profile";
 import Answers from "./Answers";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./Navbar";
-import IndividualQuestion from "./IndividualQuestion";
 
 const App = () => {
   const [token, setToken] = useState("");
