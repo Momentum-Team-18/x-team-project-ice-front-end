@@ -1,0 +1,284 @@
+import { useState, useEffect } from "react";
+import React from 'react';
+import axios from 'axios';
+import IndividualQuestion from './IndividualQuestion';
+
+function Questions({ token }) {
+const [questions, setQuestions] = useState([]);
+const [askQuestion, setAskQuestion] = useState('');
+const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+
+useEffect(() => {
+    axios
+    .get('https://questionapi.onrender.com/questions/')
+    .then((response) => setQuestions(response.data))
+    .catch((error) => console.error(error));
+}, []);
+
+const handlePost = (e) => {
+    e.preventDefault();
+    axios
+    .post('https://questionapi.onrender.com/questions/', {
+        question_text: askQuestion,
+        question_title: askQuestion,
+    }, {
+        headers: {
+        Authorization: `token ${token}`
+        }
+    })
+    .then(() => {
+        setAskQuestion('');
+        axios
+        .get('https://questionapi.onrender.com/questions/')
+        .then((response) => setQuestions(response.data))
+    })
+    .catch((error) => console.error(error));
+};
+
+const handleQuestionBoxClick = (questionId) => {
+    setSelectedQuestionId(questionId);
+};
+
+const handleDelete = (questionId) => {
+    axios
+    .delete(`https://questionapi.onrender.com/questions/delete/${questionId}/`, {
+        headers: {
+        Authorization: `token ${token}`
+        }
+    })
+    .then(() => {
+        setQuestions(questions.filter((question) => question.id !== questionId));
+        setSelectedQuestionId(null);
+    })
+    .catch((error) => console.error(error));
+};
+
+const handleCloseQuestionBox = (e, questionId) => {
+    e.stopPropagation(); 
+    setSelectedQuestionId(selectedQuestionId === questionId ? null : questionId);
+};
+
+return (
+    <>
+    <div className="question-container">
+        {questions.map((question) => (
+        <div
+            key={question.id}
+            className={`question-box ${selectedQuestionId === question.id ? 'active' : ''}`}
+            onClick={() => handleQuestionBoxClick(question.id)}
+        >
+            <p className="question-title">{question.question_title}</p>
+            {selectedQuestionId === question.id && (
+            <>
+                <button className="close-button" onClick={(e) => handleCloseQuestionBox(e, question.id)}>
+                I'm Outtie!
+                </button>
+                <p className="question-text">{question.question_text}</p>
+                <div className="question-details">
+                <IndividualQuestion questionId={question.id} token={token} />
+                </div>
+                <button className="delete-button" onClick={() => handleDelete(question.id)}>
+                Delete
+                </button>
+            </>
+            )}
+        </div>
+        ))}
+    </div>
+    <input
+        type="text"
+        placeholder="Enter your question:"
+        onChange={(e) => setAskQuestion(e.target.value)}
+    />
+    <button onClick={handlePost}>Post</button>
+    </>
+);
+}
+
+export default Questions;
+
+
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Answers from './Answers';
+
+function IndividualQuestion({ questionId, token }) {
+const [question, setQuestion] = useState(null);
+
+useEffect(() => {
+    axios
+    .get(`https://questionapi.onrender.com/questions/${questionId}`)
+    .then((response) => setQuestion(response.data))
+    .catch((error) => console.error(error));
+}, [questionId]);
+
+if (!question) {
+    return <div>Loading...</div>;
+}
+
+return (
+    <div>
+    {/* <p>{question.question_text}</p> */}
+    <Answers questionId={questionId} token={token} />
+    </div>
+);
+}
+
+export default IndividualQuestion;
+
+import { useState, useEffect } from "react";
+import React from 'react';
+import axios from 'axios';
+import dayjs from 'dayjs';
+
+function Answers({ token, questionId }) {
+  const [answers, setAnswers] = useState([]);
+  const [createAnswer, setCreateAnswer] = useState('');
+
+  useEffect(() => {
+    const headers = token ? { Authorization: `token ${token}` } : {};
+
+    axios
+      .get(`https://questionapi.onrender.com/questions/${questionId}/`, { headers })
+      .then((response) => setAnswers(response.data.answers))
+      .catch((error) => console.error(error));
+  }, [questionId, token]);
+
+  const handleCreateAnswer = (e) => {
+    e.preventDefault();
+
+    axios
+      .post(
+        'https://questionapi.onrender.com/questions/answer/',
+        {
+          answer_text: createAnswer,
+          related_question: questionId,
+        },
+        {
+          headers: {
+            Authorization: `token ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        setCreateAnswer('');
+      })
+      .catch((error) => console.error(error));
+  };
+
+  return (
+    <>
+      <div className="answer-container">
+        {answers.length > 0 ? (
+          answers.map((answer) => (
+            <div key={answer.id} className="answer-box">
+              <div className="answer-box-inner">
+                <p className="answer-author">{answer.answer_author}</p>
+                <p className="answer-text">{answer.answer_text}</p>
+                <p className="related-question">{dayjs(answer.answer_date).format('MM/DD/YYYY')}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>Login to see answers...</p>
+        )}
+        <input
+          type="text"
+          placeholder="Add your answer:"
+          onChange={(e) => setCreateAnswer(e.target.value)}
+        />
+        <button onClick={handleCreateAnswer}>Add Answer</button>
+      </div>
+    </>
+  );
+}
+
+export default Answers;
+
+
+import { useState, useEffect } from "react";
+import React from 'react'
+import axios from 'axios'
+
+function Profile( {token} ) {
+
+    const [userQuestions, setUserQuestions] = useState([])
+    const [userAnswers, setUserAnswers] = useState([])
+
+    useEffect(() => {
+        axios
+        .get('https://questionapi.onrender.com/questions/user/',
+        {
+            headers: {
+                Authorization: `token ${token}`,
+            },
+        })
+        .then((response) => setUserQuestions(response.data))
+    }, [])
+
+    useEffect(() => {
+        axios
+        .get('https://questionapi.onrender.com/user/answers/',
+        {
+            headers: {
+                Authorization: `token ${token}`,
+            },
+        })
+        .then((response) => setUserAnswers(response.data))
+    }, [])
+    return (
+    <>
+        <h1>Your Profile Page</h1>
+        <h2>Questions</h2>
+        <div>
+        {userQuestions.map((userQuestion) => (
+            <ul>
+                <p>{userQuestion.question_text}</p>
+            </ul>
+        ))}
+        </div>
+        <h2>Answers</h2>
+        <div>
+        {userAnswers.map((userAnswer) => (
+            <ul>
+                <p>{userAnswer.answer_text}</p>
+            </ul>
+        ))}
+        </div>
+
+    </>       
+    )
+}
+
+export default Profile
+
+
+
+
+
+import { useState } from 'react'
+import './App.css'
+import Home from './Home'
+import Questions from './Questions'
+import Profile from './Profile'
+import Answers from './Answers'
+
+const App = () => {
+    const [ token, setToken ] = useState("")
+
+    return (
+    <>
+        <Home updateToken={setToken} />
+        <Questions token={token} />
+    </>
+)
+}
+
+export default App;
+    
+    
+    
+
+
+
