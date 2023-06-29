@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import React from 'react';
 import axios from 'axios';
 import IndividualQuestion from './IndividualQuestion';
+import { Link } from 'react-router-dom'
 
 function Questions({ token, questionId }) {
   const [questions, setQuestions] = useState([]);
@@ -40,13 +41,9 @@ function Questions({ token, questionId }) {
         setSelectedQuestionId(questionId);
     };
 
-  const handleDelete = (e) => {
-    e.preventDefault();
+  const handleDelete = (questionId) => {
     axios
         .delete(`https://questionapi.onrender.com/questions/delete/${questionId}/`,
-        {
-            detail: questionId,
-        },
         {
         headers: {
             Authorization: `token ${token}`
@@ -54,6 +51,9 @@ function Questions({ token, questionId }) {
         })
         .then(() => {
         setDeleteQuestion('');
+        })
+        .catch( (error) => {
+          console.log(error)
         })
     };
 
@@ -76,7 +76,7 @@ function Questions({ token, questionId }) {
                 <IndividualQuestion questionId={question.id} token={token} />
                 </div>
             )}
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick = {() => handleDelete(question.id)}>Delete</button>
           </div>
         ))}
         </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import axios from 'axios';
 import './App.css';
+import { Link } from "react-router-dom";
 
 function Home({ updateToken }) {
     const [username, setUsername] = useState('');
