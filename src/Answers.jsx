@@ -8,7 +8,6 @@ function Answers ({ token, questionId }) {
     const [ answers, setAnswers ] = useState([])
     const [ createAnswer, setCreateAnswer ] = useState('')
 
-
     useEffect(() => {
         axios
         .get(`https://questionapi.onrender.com/questions/${questionId}/`)
@@ -40,7 +39,7 @@ function Answers ({ token, questionId }) {
             .then(() => {
             setCreateAnswer('');
             })
-            // .catch((error) => console.error(error));
+            .catch((error) => console.error(error));
         };
 
     return (
