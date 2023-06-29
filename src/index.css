@@ -67,9 +67,36 @@ body {
 }
 
 .answer-text.accepted{
-  color: yellowgreen
+color: yellowgreen
 }
 
+.profile-box {
+    border: 2px solid #363333;
+    padding: 10px;
+    background-color: #800080;
+    transition: background-color 0.3s ease;
+    perspective: 1000px;
+    filter: none; 
+}
+
+.profile-box:hover {
+    background-color: #FF69B4;
+}
+
+.profile-box.active {
+    background-color: #008080;
+    transform-style: preserve-3d;
+    animation: flip 0.6s;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.25);
+    z-index: 999;
+    filter: none;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+}
 
 
 
